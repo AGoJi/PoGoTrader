@@ -1,23 +1,22 @@
 <template>
   <div>
-    <div>
-      <h2>Available Trading Cards</h2>
-    </div>
-    <Menu />
     <Filters />
     <Cards />
+    <p>New Trading Card (POPUP)</p>
+    <NewTC />
   </div>
 </template>
 
 <script>
 import Filters from "../components/Filters";
-import Menu from "../components/Menu";
 import Cards from "../components/Cards";
+import NewTC from "../components/NewTC";
+
 export default {
   components: {
     Filters,
-    Menu,
-    Cards
+    Cards,
+    NewTC
   }
 };
 </script>

@@ -6,10 +6,12 @@
           <router-link to="/">Home</router-link>
         </li>
         <li>
-          <router-link to="/AvailableTC">Trading Cards</router-link>
+          <router-link to="/availabletc">Trading Cards</router-link>
         </li>
-        <li>Chats</li>
-        <li>My Profile</li>
+        <li>
+          <router-link to="/chatrooms">Chats</router-link>
+        </li>
+        <li>Profile</li>
         <li>Log in</li>
         <li>Sign up</li>
       </ul>

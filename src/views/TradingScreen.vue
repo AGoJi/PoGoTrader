@@ -1,9 +1,11 @@
 <template>
   <div>
+    <p>User</p>
     <div>
-      <router-link to="/tcdetail">Pokémon name (DETAIL)</router-link>
-      <p>Location</p>
+      <p>Chat text</p>
     </div>
+    <input type="text" placeholder="Type..." />
+    <button>Send</button>
   </div>
 </template>
 
