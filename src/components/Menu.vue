@@ -11,9 +11,15 @@
         <li>
           <router-link to="/chatrooms">Chats</router-link>
         </li>
-        <li>Profile</li>
-        <li>Log in</li>
-        <li>Sign up</li>
+        <li>
+          <router-link to="/myprofile">My Profile</router-link>
+        </li>
+        <li>
+          <router-link to="/login">Log In</router-link>
+        </li>
+        <li>
+          <router-link to="/signup">Sign Up</router-link>
+        </li>
       </ul>
     </nav>
   </div>
