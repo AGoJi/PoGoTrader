@@ -1,5 +1,6 @@
 <template>
   <div>
+    <Back />
     <p>User</p>
     <div>
       <p>Chat text</p>
@@ -10,7 +11,12 @@
 </template>
 
 <script>
-export default {};
+import Back from "../components/Back";
+export default {
+  components: {
+    Back
+  }
+};
 </script>
 
 <style>

@@ -28,8 +28,9 @@ const routes = [
     component: ChatRooms
   },
   {
-    path: "/tcdetail",
+    path: "/tcdetail/:id",
     name: "tcdetail",
+    props: true,
     component: TCdetail
   },
   {
