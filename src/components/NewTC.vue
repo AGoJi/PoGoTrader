@@ -3,19 +3,9 @@
     <div>
       <h2>Offering:</h2>
       <p>Pokémon:</p>
-      <label for="pokemon">
-        <select name="pokemon" id="pokemon">
-          <option selected>Select Pokémon</option>
-          <option value="pikachu">Pikachu</option>
-        </select>
-      </label>
+      <v-autocomplete label="Search Pokémon" :items="availablePokes"></v-autocomplete>
       <p>Shiny:</p>
-      <label>
-        <input type="checkbox" name="yes" value="yes" />Yes
-      </label>
-      <label>
-        <input type="checkbox" name="no" value="no" />No
-      </label>
+      <v-switch v-model="shiny"></v-switch>
       <p>Form:</p>
       <label for="form">
         <select name="form" id="form">
@@ -31,9 +21,11 @@
       <h2>Looking for:</h2>
       <p>Pokémon(s):</p>
       <label for="pokemons">
-        <select name="pokemons" id="pokemons" multiple>
-          <option value="pikachu">Pikachu</option>
-          <option>...</option>
+        <select name="pokemons" id="pokemons">
+          <option
+            v-for="(availablePoke, i) in availablePokes"
+            v-bind:key="`availablePoke-${i}`"
+          >{{availablePoke}}</option>
         </select>
       </label>
       <p>Additional info:</p>
@@ -48,7 +40,14 @@
 </template>
 
 <script>
-export default {};
+export default {
+  data() {
+    return {
+      availablePokes: ["Charmander", "Bulbasaur", "Squirtle", "Pikachu"],
+      shiny: false
+    };
+  }
+};
 </script>
 
 <style>

@@ -1,7 +1,7 @@
 <template>
   <div>
     <h1>Welcome to PoGo Trader!</h1>
-    <p>Some text explaining what is it about and how it works...</p>
+    <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quibusdam harum veritatis voluptates minus voluptas enim modi amet eligendi, distinctio eum vitae facere magnam natus doloribus eius est, esse tempore. Modi?</p>
   </div>
 </template>
 
