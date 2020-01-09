@@ -2,7 +2,6 @@
   <div>
     <Filters />
     <Cards />
-    <p>New Trading Card (POPUP)</p>
     <NewTC />
   </div>
 </template>

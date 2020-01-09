@@ -1,7 +1,7 @@
 <template>
   <div>
     <h2>General</h2>
-    <h2>My Chat Rooms</h2>
+    <h3>My Chat Rooms</h3>
   </div>
 </template>
 

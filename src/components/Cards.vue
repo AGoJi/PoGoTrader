@@ -1,10 +1,9 @@
 <template>
   <div>
-    <div>
-      <router-link to="/tcdetail/1">Pokémon name (DETAIL 1)</router-link>
-      <router-link to="/tcdetail/2">Pokémon name (DETAIL 2)</router-link>
-      <router-link to="/tcdetail/3">Pokémon name (DETAIL 3)</router-link>
-    </div>
+    <h2>Available Trading Cards</h2>
+    <router-link to="/tcdetail/1">Pokémon name (DETAIL 1)</router-link>
+    <router-link to="/tcdetail/2">Pokémon name (DETAIL 2)</router-link>
+    <router-link to="/tcdetail/3">Pokémon name (DETAIL 3)</router-link>
   </div>
 </template>
 
