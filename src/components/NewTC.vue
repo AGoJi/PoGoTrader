@@ -14,7 +14,9 @@
               <h2>Offering:</h2>
               <v-autocomplete
                 label="Search the Pokémon you are offering"
-                :items="availablePokes"
+                :items="pokeList"
+                item-text="name"
+                item-value="name"
                 v-model="offeredPoke"
               ></v-autocomplete>
               <v-switch v-model="shiny" label="Shiny"></v-switch>
@@ -24,14 +26,42 @@
             <div>
               <h2>Looking for:</h2>
               <p>Pokémon(s):</p>
-              <!--<label for="pokemons">
-                <select name="pokemons" id="pokemons">
-                  <option
-                    v-for="(availablePoke, i) in availablePokes"
-                    v-bind:key="`availablePoke-${i}`"
-                  >{{availablePoke}}</option>
-                </select>
-              </label>-->
+              <v-autocomplete
+                v-model="selectedPokes"
+                :disabled="isUpdating"
+                :items="pokeList"
+                filled
+                chips
+                color="blue-grey lighten-2"
+                label="Select"
+                item-text="name"
+                item-value="name"
+                multiple
+              >
+                <template v-slot:selection="data">
+                  <v-chip
+                    v-bind="data.attrs"
+                    :input-value="data.selected"
+                    close
+                    @click="data.select"
+                    @click:close="remove(data.item)"
+                  >
+                    <v-avatar left>
+                      <v-img :src="data.item.avatar"></v-img>
+                    </v-avatar>
+                    {{ data.item.name }}
+                  </v-chip>
+                </template>
+                <template v-slot:item="data">
+                  <v-list-item-avatar>
+                    <img :src="data.item.avatar" />
+                  </v-list-item-avatar>
+                  <v-list-item-content>
+                    <v-list-item-title v-html="data.item.name"></v-list-item-title>
+                  </v-list-item-content>
+                </template>
+              </v-autocomplete>
+              <!--  -->
               <v-text-field
                 label="Add relevant info about the Pokémon(s) you're looking for"
                 v-model="lookInfo"
@@ -55,21 +85,69 @@
 </template>
 
 <script>
+import axios from "axios";
 export default {
   data() {
     return {
       newTCpopup: false,
-      availablePokes: ["Charmander", "Bulbasaur", "Squirtle", "Pikachu"],
+      availablePokes: {},
       shiny: false,
       offeredPoke: "",
       forms: ["Normal", "Alola", "Galar"],
       form: "Normal",
       offInfo: "",
-      lookInfo: ""
+      lookInfo: "",
+      selectedPokes: [],
+      isUpdating: false,
+      error: null
     };
+  },
+  watch: {
+    isUpdating(val) {
+      if (val) {
+        setTimeout(() => (this.isUpdating = false), 3000);
+      }
+    }
+  },
+  methods: {
+    remove(item) {
+      const index = this.selectedPokes.indexOf(item.name);
+      if (index >= 0) this.selectedPokes.splice(index, 1);
+    },
+    getData() {
+      axios
+        .get("/released_pokemon.json")
+        .then(response => {
+          this.availablePokes = response.data;
+        })
+        .catch(function(error) {
+          this.error = error;
+        });
+    }
+  },
+  computed: {
+    pokeList() {
+      return Object.values(this.availablePokes).map(pokemon => {
+        let pokeid = pokemon.id;
+        if (pokeid < 100) {
+          pokeid = "0" + pokeid;
+        }
+        if (pokeid < 10) {
+          pokeid = "0" + pokeid;
+        }
+
+        return {
+          id: pokemon.id,
+          name: pokemon.name,
+          avatar: `https://assets.pokemon.com/assets/cms2/img/pokedex/detail/${pokeid}.png`
+        };
+      });
+    }
+  },
+  created() {
+    this.getData();
   }
 };
 </script>
 
-<style>
-</style>
+<style></style>

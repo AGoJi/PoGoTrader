@@ -50,8 +50,8 @@ export default {
         { title: "Trading Cards", to: "/availabletc" },
         { title: "Chats", to: "/chatrooms" },
         { title: "My Profile", to: "/myprofile" },
-        { title: "Log In", to: "/login" },
-        { title: "Sign Up", to: "/signup" }
+        { title: "Log In", to: "/login" }
+        //{ title: "Sign Up", to: "/signup" }
       ]
     };
   }

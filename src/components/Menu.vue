@@ -16,9 +16,9 @@
       <li>
         <router-link to="/login">Log In</router-link>
       </li>
-      <li>
+      <!--<li>
         <router-link to="/signup">Sign Up</router-link>
-      </li>
+      </li>-->
     </ul>
   </nav>
 </template>

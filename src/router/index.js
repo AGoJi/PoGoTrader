@@ -5,7 +5,7 @@ import AvailableTC from "../views/AvailableTC";
 import ChatRooms from "../views/ChatRooms";
 import TCdetail from "../views/TCdetail";
 import TradingScreen from "../views/TradingScreen";
-import SignUp from "../views/SignUp";
+//import SignUp from "../views/SignUp";
 import LogIn from "../views/LogIn";
 import MyProfile from "../views/MyProfile";
 
@@ -38,11 +38,11 @@ const routes = [
     name: "tradingscreen",
     component: TradingScreen
   },
-  {
-    path: "/signup",
-    name: "signup",
-    component: SignUp
-  },
+  //{
+  //  path: "/signup",
+  //  name: "signup",
+  //  component: SignUp
+  //},
   {
     path: "/login",
     name: "login",

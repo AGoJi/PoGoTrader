@@ -3,7 +3,7 @@
     <h2>Filters</h2>
     <v-row>
       <v-col cols="12" md="4">
-        <v-autocomplete :items="availablePokes" v-model="filteredPoke" label="Search Pokémon"></v-autocomplete>
+        <v-autocomplete v-model="filteredPoke" label="Search Pokémon"></v-autocomplete>
       </v-col>
       <v-col cols="12" md="4">
         <v-select :items="forms" v-model="form" label="Pokémon form"></v-select>
@@ -19,7 +19,6 @@
 export default {
   data() {
     return {
-      availablePokes: ["Charmander", "Bulbasaur", "Squirtle", "Pikachu"],
       filteredPoke: "",
       forms: ["Normal", "Alola", "Galar"],
       form: "Normal",
