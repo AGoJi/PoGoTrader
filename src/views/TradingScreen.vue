@@ -12,9 +12,16 @@
 
 <script>
 import Back from "../components/Back";
+import { mapMutations } from "vuex";
 export default {
   components: {
     Back
+  },
+  methods: {
+    ...mapMutations(["setTitle"])
+  },
+  created() {
+    this.setTitle("Trading Chat");
   }
 };
 </script>

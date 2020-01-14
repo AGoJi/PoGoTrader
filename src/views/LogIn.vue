@@ -1,5 +1,5 @@
 <template>
-  <v-form>
+  <v-form v-on:submit.prevent>
     <v-container>
       <v-text-field v-model="username" label="Username"></v-text-field>
       <v-text-field v-model="password" label="Password"></v-text-field>
@@ -15,7 +15,7 @@
         <!--Profile-->
         <p>PERFIL</p>
         <h3>{{auth.name}}</h3>
-        <img :src="auth.avatar" alt="profile image" />
+        <img :src="auth.avatar" alt="Profile image" />
         <!--Chat-->
         <div>
           <p>CHAT</p>
@@ -35,6 +35,7 @@
 
 <script>
 import dataBase from "@/dataBase";
+import { mapMutations } from "vuex";
 export default {
   props: {
     msg: String
@@ -49,6 +50,7 @@ export default {
     };
   },
   methods: {
+    ...mapMutations(["setTitle", "setUser"]),
     googleLogin() {
       let that = this;
       const provider = new dataBase.auth.GoogleAuthProvider();
@@ -71,6 +73,7 @@ export default {
           };
           console.log(user);
           that.auth = user;
+          that.setUser(user);
 
           dataBase
             .database()
@@ -124,6 +127,7 @@ export default {
     }
   },
   created() {
+    this.setTitle("Log In");
     this.getPosts();
     dataBase.auth().onAuthStateChanged(user => {
       if (user) {

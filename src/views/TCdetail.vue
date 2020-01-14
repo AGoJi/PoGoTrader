@@ -24,6 +24,7 @@
 
 <script>
 import Back from "../components/Back";
+import { mapMutations } from "vuex";
 export default {
   components: {
     Back
@@ -43,6 +44,12 @@ export default {
         location: "Igualada"
       }
     };
+  },
+  methods: {
+    ...mapMutations(["setTitle"])
+  },
+  created() {
+    this.setTitle("Card Detail");
   }
 };
 </script>

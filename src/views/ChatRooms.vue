@@ -6,7 +6,15 @@
 </template>
 
 <script>
-export default {};
+import { mapMutations } from "vuex";
+export default {
+  methods: {
+    ...mapMutations(["setTitle"])
+  },
+  created() {
+    this.setTitle("Chats");
+  }
+};
 </script>
 
 <style>
