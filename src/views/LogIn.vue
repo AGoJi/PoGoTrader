@@ -9,44 +9,20 @@
         @click="googleLogin"
         src="https://pngimage.net/wp-content/uploads/2018/06/login-with-google-button-png-1.png"
         alt="Google Login"
-        v-if="!auth"
+        v-if="!getUser"
       />
-      <div v-if="auth">
-        <!--Profile-->
-        <p>PERFIL</p>
-        <h3>{{auth.name}}</h3>
-        <img :src="auth.avatar" alt="Profile image" />
-        <!--Chat-->
-        <div>
-          <p>CHAT</p>
-          <input type="text" v-model="message" />
-          <button @click="sendMsg">Send</button>
-          <div v-for="(v,k,i) in messages" :key="i+'msg'" class="msg">
-            <p>
-              <span>{{v.user.name}}</span>
-              : {{v.msg}}
-            </p>
-          </div>
-        </div>
-      </div>
     </v-container>
   </v-form>
 </template>
 
 <script>
 import dataBase from "@/dataBase";
-import { mapMutations } from "vuex";
+import { mapMutations, mapGetters } from "vuex";
 export default {
-  props: {
-    msg: String
-  },
   data() {
     return {
       username: "",
-      password: "",
-      auth: null,
-      message: "",
-      messages: []
+      password: ""
     };
   },
   methods: {
@@ -105,30 +81,13 @@ export default {
         .catch(function(error) {
           console.log(error);
         });
-    },
-    sendMsg() {
-      dataBase
-        .database()
-        .ref()
-        .child("posts")
-        .push({ user: this.auth, msg: this.message });
-      this.message = "";
-    },
-    getPosts() {
-      let that = this;
-      dataBase
-        .database()
-        .ref("posts/")
-        .on("value", snapshot => {
-          console.log(snapshot.val());
-
-          that.messages = snapshot.val();
-        });
     }
+  },
+  computed: {
+    ...mapGetters(["getUser"])
   },
   created() {
     this.setTitle("Log In");
-    this.getPosts();
     dataBase.auth().onAuthStateChanged(user => {
       if (user) {
         // User is signed in.

@@ -14,14 +14,14 @@
               <h2>Offering:</h2>
               <v-autocomplete
                 label="Search the Pokémon you are offering"
-                :items="pokeList"
+                :items="this.getPokes"
                 item-text="name"
                 item-value="name"
                 v-model="offeredPoke"
               ></v-autocomplete>
               <v-switch v-model="shiny" label="Shiny"></v-switch>
               <v-select v-model="form" :items="forms" label="Select Pokémon form"></v-select>
-              <v-text-field label="Add relevant info about the offered Pokémon" v-model="offInfo"></v-text-field>
+              <v-text-field label="Offered Pokémon info" v-model="offInfo"></v-text-field>
             </div>
             <div>
               <h2>Looking for:</h2>
@@ -29,7 +29,7 @@
               <v-autocomplete
                 v-model="selectedPokes"
                 :disabled="isUpdating"
-                :items="pokeList"
+                :items="this.getPokes"
                 filled
                 chips
                 color="blue-grey lighten-2"
@@ -61,22 +61,16 @@
                   </v-list-item-content>
                 </template>
               </v-autocomplete>
-              <!--  -->
-              <v-text-field
-                label="Add relevant info about the Pokémon(s) you're looking for"
-                v-model="lookInfo"
-              ></v-text-field>
+              <v-text-field label="Looking for Pokémon(s) info" v-model="lookInfo"></v-text-field>
             </div>
             <div>
-              <h2>Location:</h2>
-              <p>MAP API</p>
-              <p>Set location and travel radius:</p>
+              <v-text-field label="Continent, country, state and city" v-model="location"></v-text-field>
             </div>
           </v-card-text>
           <v-card-actions>
             <v-spacer></v-spacer>
             <v-btn color="red" text @click="newTCpopup = false">Close</v-btn>
-            <v-btn color="red" text @click="newTCpopup = false">Save</v-btn>
+            <v-btn color="red" text @click="postCard">Save</v-btn>
           </v-card-actions>
         </v-card>
       </v-dialog>
@@ -85,12 +79,12 @@
 </template>
 
 <script>
-import axios from "axios";
+import dataBase from "@/dataBase";
+import { mapGetters } from "vuex";
 export default {
   data() {
     return {
       newTCpopup: false,
-      availablePokes: {},
       shiny: false,
       offeredPoke: "",
       forms: ["Normal", "Alola", "Galar"],
@@ -98,6 +92,7 @@ export default {
       offInfo: "",
       lookInfo: "",
       selectedPokes: [],
+      location: "",
       isUpdating: false,
       error: null
     };
@@ -114,39 +109,32 @@ export default {
       const index = this.selectedPokes.indexOf(item.name);
       if (index >= 0) this.selectedPokes.splice(index, 1);
     },
-    getData() {
-      axios
-        .get("/released_pokemon.json")
-        .then(response => {
-          this.availablePokes = response.data;
-        })
-        .catch(function(error) {
-          this.error = error;
-        });
+    postCard() {
+      this.newTCpopup = false;
+      let avatar = this.getPokes.find(poke => {
+        return poke.name == this.offeredPoke;
+      }).avatar;
+      let card = {
+        offeredPoke: this.offeredPoke,
+        shiny: this.shiny,
+        form: this.form,
+        offInfo: this.offInfo,
+        lookingPoke: this.selectedPokes,
+        lookInfo: this.lookInfo,
+        location: this.location,
+        avatar,
+        user: this.getUser.id
+      };
+      dataBase
+        .database()
+        .ref("cards")
+        .push(card);
     }
   },
   computed: {
-    pokeList() {
-      return Object.values(this.availablePokes).map(pokemon => {
-        let pokeid = pokemon.id;
-        if (pokeid < 100) {
-          pokeid = "0" + pokeid;
-        }
-        if (pokeid < 10) {
-          pokeid = "0" + pokeid;
-        }
-
-        return {
-          id: pokemon.id,
-          name: pokemon.name,
-          avatar: `https://assets.pokemon.com/assets/cms2/img/pokedex/detail/${pokeid}.png`
-        };
-      });
-    }
+    ...mapGetters(["getUser", "getPokes"])
   },
-  created() {
-    this.getData();
-  }
+  created() {}
 };
 </script>
 

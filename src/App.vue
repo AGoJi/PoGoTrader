@@ -9,6 +9,7 @@
 
 <script>
 import Header from "./components/Header";
+import { mapActions } from "vuex";
 export default {
   components: {
     Header
@@ -17,6 +18,12 @@ export default {
     return {
       title: "{View title}"
     };
+  },
+  methods: {
+    ...mapActions(["getData"])
+  },
+  created() {
+    this.getData();
   }
 };
 </script>

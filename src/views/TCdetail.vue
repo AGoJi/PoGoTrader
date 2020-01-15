@@ -3,26 +3,28 @@
     <Back />
     <div>
       <h1>{{id}}</h1>
+      <!--id=k-->
       <h2>Offering:</h2>
-      <p>Pokémon: {{item.offering}}</p>
-      <p>Shiny: {{item.shiny}}</p>
-      <p>Form: {{item.form}}</p>
-      <p>Additional info: {{item.info}}</p>
+      <p>Pokémon:</p>
+      <p>Shiny:</p>
+      <p>Form:</p>
+      <p>Additional info:</p>
     </div>
     <div>
       <h2>Looking for:</h2>
-      <p>Pokémon(s): {{item.looking}}</p>
-      <p>Additional info: {{item.lookinfo}}</p>
+      <p>Pokémon(s):</p>
+      <p>Additional info:</p>
     </div>
     <div>
       <h2>Location:</h2>
-      <p>{{item.location}}</p>
+      <p></p>
     </div>
     <router-link to="/tradingscreen">Let's trade!</router-link>
   </div>
 </template>
 
 <script>
+import dataBase from "@/dataBase";
 import Back from "../components/Back";
 import { mapMutations } from "vuex";
 export default {
@@ -32,24 +34,23 @@ export default {
   props: {
     id: String
   },
-  data() {
-    return {
-      item: {
-        offering: "Pikachu",
-        shiny: "Yes",
-        form: "Normal",
-        offinfo: "blablabla",
-        looking: ["Charmander"],
-        lookinfo: "blebleble",
-        location: "Igualada"
-      }
-    };
-  },
   methods: {
-    ...mapMutations(["setTitle"])
+    ...mapMutations(["setTitle"]),
+    getCards() {
+      let that = this;
+      dataBase
+        .database()
+        .ref("cards/")
+        .on("value", snapshot => {
+          console.log(snapshot.val());
+
+          that.cards = snapshot.val();
+        });
+    }
   },
   created() {
     this.setTitle("Card Detail");
+    this.getCards();
   }
 };
 </script>

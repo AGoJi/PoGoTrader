@@ -8,6 +8,7 @@ import TradingScreen from "../views/TradingScreen";
 //import SignUp from "../views/SignUp";
 import LogIn from "../views/LogIn";
 import MyProfile from "../views/MyProfile";
+import store from "../store/index";
 
 Vue.use(VueRouter);
 
@@ -25,7 +26,8 @@ const routes = [
   {
     path: "/chatrooms",
     name: "chatrooms",
-    component: ChatRooms
+    component: ChatRooms,
+    meta: { requiresAuth: true }
   },
   {
     path: "/tcdetail/:id",
@@ -51,13 +53,26 @@ const routes = [
   {
     path: "/myprofile",
     name: "myprofile",
-    component: MyProfile
+    component: MyProfile,
+    meta: { requiresAuth: true }
   }
 ];
 
 const router = new VueRouter({
   routes,
   mode: "history"
+});
+
+router.beforeEach((to, from, next) => {
+  console.log("to: ", to.fullPath);
+  if (
+    to.matched.some(record => record.meta.requiresAuth) &&
+    !store.state.user
+  ) {
+    console.log("You are not authorised");
+    return next("/login");
+  }
+  return next();
 });
 
 export default router;
