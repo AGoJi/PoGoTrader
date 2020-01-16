@@ -1,26 +1,27 @@
 <template>
-  <div>
+  <v-container>
     <Back />
     <div>
-      <h1>{{id}}</h1>
-      <!--id=k-->
       <h2>Offering:</h2>
-      <p>Pokémon:</p>
-      <p>Shiny:</p>
-      <p>Form:</p>
-      <p>Additional info:</p>
+      <v-img :src="pokeInfo.avatar" alt="avatar" />
+      <p>Pokémon: {{pokeInfo.offeredPoke}}</p>
+      <p>Shiny: {{pokeInfo.shiny}}</p>
+      <p>Form: {{pokeInfo.form}}</p>
+      <p>Additional info: {{pokeInfo.offInfo}}</p>
     </div>
     <div>
       <h2>Looking for:</h2>
-      <p>Pokémon(s):</p>
-      <p>Additional info:</p>
+      <p>Pokémon(s): {{pokeInfo.lookingPoke}}</p>
+      <p>Additional info: {{pokeInfo.lookInfo}}</p>
     </div>
     <div>
       <h2>Location:</h2>
-      <p></p>
+      <p>{{pokeInfo.location}}</p>
     </div>
-    <router-link to="/tradingscreen">Let's trade!</router-link>
-  </div>
+    <router-link class="link" to="/tradingscreen">
+      <v-btn color="red">Let's Trade!</v-btn>
+    </router-link>
+  </v-container>
 </template>
 
 <script>
@@ -31,6 +32,11 @@ export default {
   components: {
     Back
   },
+  data() {
+    return {
+      pokeInfo: {}
+    };
+  },
   props: {
     id: String
   },
@@ -40,11 +46,11 @@ export default {
       let that = this;
       dataBase
         .database()
-        .ref("cards/")
-        .on("value", snapshot => {
+        .ref("cards/" + this.id)
+        .once("value", snapshot => {
           console.log(snapshot.val());
 
-          that.cards = snapshot.val();
+          that.pokeInfo = snapshot.val();
         });
     }
   },
@@ -55,5 +61,8 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
+.link {
+  text-decoration: none;
+}
 </style>

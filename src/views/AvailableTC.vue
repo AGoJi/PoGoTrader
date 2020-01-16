@@ -1,9 +1,9 @@
 <template>
-  <div>
+  <v-container>
     <Filters />
-    <Cards />
     <NewTC />
-  </div>
+    <Cards />
+  </v-container>
 </template>
 
 <script>

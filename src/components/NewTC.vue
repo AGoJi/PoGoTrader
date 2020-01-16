@@ -3,7 +3,7 @@
     <v-row justify="center">
       <v-dialog v-model="newTCpopup" width="600px">
         <template v-slot:activator="{ on }">
-          <v-btn color="red" v-on="on">New Trading Card</v-btn>
+          <v-btn color="red" v-on="on">Add a New Trading Card</v-btn>
         </template>
         <v-card>
           <v-card-title>

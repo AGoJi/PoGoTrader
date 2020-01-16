@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <v-container>
     <h2>Filters</h2>
     <v-row>
       <v-col cols="12" md="4">
@@ -12,7 +12,7 @@
         <v-switch v-model="shiny" label="Shiny"></v-switch>
       </v-col>
     </v-row>
-  </div>
+  </v-container>
 </template>
 
 <script>

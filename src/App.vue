@@ -1,7 +1,7 @@
 <template>
   <v-app>
     <Header v-bind:title="title" />
-    <v-content>
+    <v-content class="yellow lighten-5">
       <router-view></router-view>
     </v-content>
   </v-app>

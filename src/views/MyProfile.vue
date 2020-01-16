@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <v-container>
     <v-card class="mx-auto" max-width="434" tile>
       <v-img height="100%" src="@/assets/profilecard.jpg">
         <v-row align="end" class="fill-height">
@@ -19,8 +19,7 @@
       </v-img>
     </v-card>
     <h2>My own Trading Cards</h2>
-    <p>OWN CARDS</p>
-  </div>
+  </v-container>
 </template>
 
 <script>

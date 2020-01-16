@@ -1,8 +1,8 @@
 <template>
   <div>
-    <v-app-bar color="red" flat>
+    <v-app-bar color="red" fixed app>
       <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
-      <v-toolbar-title class="display-1">{{getTitle}}</v-toolbar-title>
+      <v-toolbar-title class="display-1 font-weight-bold">{{getTitle}}</v-toolbar-title>
       <v-spacer></v-spacer>
     </v-app-bar>
     <v-navigation-drawer v-model="drawer" absolute temporary>

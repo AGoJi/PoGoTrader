@@ -1,19 +1,18 @@
 <template>
-  <div>
+  <v-container>
     <h2>Available Trading Cards</h2>
-    <!--<router-link to="/tcdetail/1">Pokémon name (DETAIL 1)</router-link>
-    <router-link to="/tcdetail/2">Pokémon name (DETAIL 2)</router-link>
-    <router-link to="/tcdetail/3">Pokémon name (DETAIL 3)</router-link>-->
-    <router-link v-for="(v,k,i) in cards" :key="i+'offeredPoke'" :to="'/tcdetail/' + k">
-      <div class="offeredPoke">
-        <img :src="v.avatar" alt="avatar" />
-        <p>
-          <span>{{v.offeredPoke}}</span>
-          : {{v.location}}
-        </p>
-      </div>
-    </router-link>
-  </div>
+    <v-card
+      class="ma-3"
+      max-width="400"
+      v-for="(v,k,i) in cards"
+      :key="i+'offeredPoke'"
+      :to="'/tcdetail/' + k"
+    >
+      <v-img class="white--text align-end" height="250px" :src="v.avatar" alt="avatar"></v-img>
+      <v-card-title>{{v.offeredPoke}}</v-card-title>
+      <v-card-subtitle class="pb-0">{{v.location}}</v-card-subtitle>
+    </v-card>
+  </v-container>
 </template>
 
 <script>
