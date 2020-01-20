@@ -133,8 +133,7 @@ export default {
   },
   computed: {
     ...mapGetters(["getUser", "getPokes"])
-  },
-  created() {}
+  }
 };
 </script>
 

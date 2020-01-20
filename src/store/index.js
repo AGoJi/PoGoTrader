@@ -8,7 +8,8 @@ export default new Vuex.Store({
   state: {
     title: "",
     user: null,
-    availablePokes: null
+    availablePokes: null,
+    filter: ""
   },
   mutations: {
     setTitle: (state, payload) => (state.title = payload),
@@ -29,7 +30,8 @@ export default new Vuex.Store({
           avatar: `https://assets.pokemon.com/assets/cms2/img/pokedex/detail/${pokeid}.png`
         };
       });
-    }
+    },
+    setFilter: (state, payload) => (state.filter = payload)
   },
   actions: {
     getData(context) {
@@ -47,6 +49,7 @@ export default new Vuex.Store({
   getters: {
     getTitle: state => state.title,
     getUser: state => state.user,
-    getPokes: state => state.availablePokes
+    getPokes: state => state.availablePokes,
+    getFilter: state => state.filter
   }
 });

@@ -1,7 +1,6 @@
 <template>
   <v-container>
     <h1 class="display-1 font-weight-bold">Welcome to PoGo Trader!</h1>
-    <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quibusdam harum veritatis voluptates minus voluptas enim modi amet eligendi, distinctio eum vitae facere magnam natus doloribus eius est, esse tempore. Modi?</p>
   </v-container>
 </template>
 

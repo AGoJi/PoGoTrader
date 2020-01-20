@@ -9,7 +9,7 @@
             <v-btn color="red">Log In</v-btn>
           </v-flex>
           <v-flex xs4>
-            <v-btn color="red" @click="logOut">Log Out</v-btn>
+            <v-btn color="red" @click="logOut" v-if="getUser">Log Out</v-btn>
           </v-flex>
         </v-layout>
         <v-layout row justify-center>
@@ -87,7 +87,8 @@ export default {
         .signOut()
         .then(function() {
           //Sign-out successful.
-          that.auth = null;
+          that.auth = that.user;
+          that.setUser(that.user);
         })
         .catch(function(error) {
           console.log(error);
