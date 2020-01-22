@@ -50,8 +50,6 @@ export default {
         .database()
         .ref("posts/")
         .on("value", snapshot => {
-          console.log(snapshot.val());
-
           that.messages = snapshot.val();
         });
     }
@@ -74,5 +72,6 @@ export default {
   border: solid;
   border-color: grey;
   border-width: 1px;
+  word-wrap: break-word;
 }
 </style>

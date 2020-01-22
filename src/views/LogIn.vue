@@ -2,17 +2,17 @@
   <v-container>
     <v-form v-on:submit.prevent>
       <v-container>
-        <v-text-field v-model="username" label="Username"></v-text-field>
-        <v-text-field v-model="password" label="Password"></v-text-field>
-        <v-layout row justify-center>
-          <v-flex xs4>
+        <!--<v-text-field v-model="username" label="Username"></v-text-field>
+        <v-text-field v-model="password" label="Password"></v-text-field>-->
+        <v-layout justify-center>
+          <!--<v-flex xs4>
             <v-btn color="red">Log In</v-btn>
-          </v-flex>
-          <v-flex xs4>
+          </v-flex>-->
+          <v-flex xs3>
             <v-btn color="red" @click="logOut" v-if="getUser">Log Out</v-btn>
           </v-flex>
         </v-layout>
-        <v-layout row justify-center>
+        <v-layout justify-center>
           <img
             @click="googleLogin"
             src="@/assets/googlelogin.png"
@@ -45,7 +45,7 @@ export default {
         .auth()
         .signInWithPopup(provider)
         .then(function(result) {
-          console.log(result);
+          //console.log(result);
 
           //Google Acess Token
 
@@ -58,7 +58,7 @@ export default {
             avatar: result.user.photoURL,
             id: result.user.uid
           };
-          console.log(user);
+          //console.log(user);
           that.auth = user;
           that.setUser(user);
 
@@ -111,7 +111,7 @@ export default {
         };
       } else {
         // No user is signed in.
-        console.log("User not logged in!!!");
+        //console.log("User not logged in!!!");
       }
     });
   }

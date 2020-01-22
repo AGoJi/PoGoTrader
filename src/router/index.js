@@ -64,12 +64,12 @@ const router = new VueRouter({
 });
 
 router.beforeEach((to, from, next) => {
-  console.log("to: ", to.fullPath);
+  //console.log("to: ", to.fullPath);
   if (
     to.matched.some(record => record.meta.requiresAuth) &&
     !store.state.user
   ) {
-    console.log("You are not authorised");
+    //console.log("You are not authorised");
     return next("/login");
   }
   return next();

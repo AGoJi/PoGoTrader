@@ -8,9 +8,9 @@
       :elevation="5"
       class="ma-3"
       max-width="400"
-      v-for="(v,k,i) in filteredCards"
+      v-for="(v,i) in filteredCards"
       :key="i+'offeredPoke'"
-      :to="'/tcdetail/' + k"
+      :to="'/tcdetail/' + v.id"
     >
       <v-img class="white--text align-end" height="250px" :src="v.avatar" alt="avatar"></v-img>
       <v-card-title>{{v.offeredPoke}}</v-card-title>
@@ -26,7 +26,11 @@ export default {
   data() {
     return {
       cards: [],
-      search: ""
+      filter: {
+        name: "",
+        shiny: null,
+        form: ""
+      }
     };
   },
   methods: {
@@ -36,9 +40,14 @@ export default {
         .database()
         .ref("cards/")
         .on("value", snapshot => {
-          console.log(snapshot.val());
+          let cards = snapshot.val();
+          for (let key in cards) {
+            cards[key]["id"] = key;
+          }
 
-          that.cards = snapshot.val();
+          let arrayedCards = Object.values(cards);
+
+          that.cards = arrayedCards;
         });
     }
   },
@@ -48,16 +57,16 @@ export default {
   computed: {
     ...mapGetters(["getFilter"]),
     filteredCards() {
-      let result = {};
-      if (this.getFilter == "") {
-        return this.cards;
-      }
-      for (let key in this.cards) {
-        if (this.cards[key].offeredPoke == this.getFilter) {
-          result[key] = this.cards[key];
-        }
-      }
-      return result;
+      return this.cards
+        .filter(card => {
+          return card.offeredPoke.includes(this.getFilter.searchPoke);
+        })
+        .filter(card => card.form.includes(this.getFilter.form))
+        .filter(card =>
+          this.getFilter.shiny != null
+            ? card.shiny == this.getFilter.shiny
+            : card
+        );
     }
   }
 };

@@ -1,26 +1,45 @@
 <template>
   <v-container>
     <Back />
-    <div>
-      <h2>Offering:</h2>
-      <v-img :src="pokeInfo.avatar" alt="avatar" />
-      <p>Pokémon: {{pokeInfo.offeredPoke}}</p>
-      <p>Shiny: {{pokeInfo.shiny}}</p>
-      <p>Form: {{pokeInfo.form}}</p>
-      <p>Additional info: {{pokeInfo.offInfo}}</p>
-    </div>
-    <div>
-      <h2>Looking for:</h2>
-      <p>Pokémon(s): {{pokeInfo.lookingPoke}}</p>
-      <p>Additional info: {{pokeInfo.lookInfo}}</p>
-    </div>
-    <div>
-      <h2>Location:</h2>
-      <p>{{pokeInfo.location}}</p>
-    </div>
-    <router-link class="link" to="/tradingscreen">
-      <v-btn color="red">Let's Trade!</v-btn>
-    </router-link>
+    <v-card color="red accent-1">
+      <v-img class="black--text align-end" height="280px" :src="pokeInfo.avatar" alt="avatar">
+        <v-card-title>{{pokeInfo.offeredPoke}}</v-card-title>
+      </v-img>
+      <v-card-text class="text--primary">
+        <div>
+          <span class="font-weight-bold">Shiny:</span>
+          {{pokeInfo.shiny}}
+        </div>
+        <div>
+          <span class="font-weight-bold">Form:</span>
+          {{pokeInfo.form}}
+        </div>
+        <div>
+          <span class="font-weight-bold">Additional info:</span>
+          {{pokeInfo.offInfo}}
+        </div>
+        <div class="font-weight-bold title">Looking for:</div>
+        <div>
+          <span class="font-weight-bold">Pokémon(s):</span>
+          {{pokeInfo.lookingPoke}}
+        </div>
+        <div>
+          <span class="font-weight-bold">Additional info:</span>
+          {{pokeInfo.lookInfo}}
+        </div>
+        <div class="font-weight-bold title">Location:</div>
+        <div>{{pokeInfo.location}}</div>
+      </v-card-text>
+      <v-card-actions>
+        <v-layout justify-center>
+          <v-flex xs6>
+            <router-link class="link" to="/tradingscreen">
+              <v-btn color="red">Let's Trade!</v-btn>
+            </router-link>
+          </v-flex>
+        </v-layout>
+      </v-card-actions>
+    </v-card>
   </v-container>
 </template>
 
@@ -48,8 +67,6 @@ export default {
         .database()
         .ref("cards/" + this.id)
         .once("value", snapshot => {
-          console.log(snapshot.val());
-
           that.pokeInfo = snapshot.val();
         });
     }

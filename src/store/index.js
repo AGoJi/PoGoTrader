@@ -9,7 +9,12 @@ export default new Vuex.Store({
     title: "",
     user: null,
     availablePokes: null,
-    filter: ""
+    filter: {
+      searchPoke: "",
+
+      form: "",
+      shiny: null
+    }
   },
   mutations: {
     setTitle: (state, payload) => (state.title = payload),
@@ -38,7 +43,7 @@ export default new Vuex.Store({
       axios
         .get("/released_pokemon.json")
         .then(response => {
-          console.log(response);
+          //console.log(response);
           context.commit("savePokes", response.data);
         })
         .catch(function(error) {
